@@ -1,17 +1,72 @@
 import React, { useState } from 'react'
-import { getForecast } from '../api/api-search'
+import { getForecast } from '../api/api-search.js'
 import './Search_.scss'
 
-const Search = () => {
-    let [searchLocation, setSearchLocation] = useState('')
+const Search = ({
+        setLocationName,
+        setCurrTemp,
+        setCurrConditionText,
+        setCurrConditionIcon,
+        setCurrCloud,
+        setCurrHumidity,
+        setCurrWind
+    }) => {
 
-    const handleClickSearch = e => {
+    const [searchLocation, setSearchLocation] = useState('')
+
+    const [searchedLocations, setSearchedLocations] = useState(
+        localStorage.getItem('searchedLocations')
+        ? JSON.parse(localStorage.getItem('searchedLocations'))
+        : ['Moscow', 'Belgrade', 'Minsk', 'Beijing']
+    )
+    
+    const updateStates = result => {
+        setLocationName(result.current.name)
+        setCurrTemp(Math.round(result.current.temp))
+        setCurrConditionText(result.current.conditionText)
+        setCurrConditionIcon(result.current.conditionIcon)
+        setCurrCloud(result.current.cloud)
+        setCurrHumidity(result.current.humidity)
+        setCurrWind(result.current.windSpeed)
+    }
+
+    const handleClickSearch = async e => {
         e.preventDefault()
+
+        if (!searchLocation) {
+            alert('Specify location')
+        }
+
+        const result = await getForecast(searchLocation)
+
+        if (result?.msg) {
+            return
+        }
+
+        if (!localStorage.getItem('searchedLocations')) {
+            localStorage.setItem('searchedLocations', JSON.stringify([searchLocation, ...searchedLocations].slice(0, 4)))
+            setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
+        }
+        
+        if (!JSON.parse(localStorage.getItem('searchedLocations')).includes(searchLocation)){
+            localStorage.setItem('searchedLocations', JSON.stringify([searchLocation, ...searchedLocations].slice(0, 4)))
+            setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
+        }
+        updateStates(result)
+    }
+
+    const handleClickSearchedLocation = async ({ target }) => {
+        const result = await getForecast(target.innerText)
+
+        if (result?.msg) {
+            return
+        }
+
+        updateStates(result)
     }
 
     const handleChangeSearch = ({ target }) => {
         setSearchLocation(target.value)
-        console.log(searchLocation)
     }
 
     return (
@@ -41,10 +96,9 @@ const Search = () => {
             </search>
             <div className='search-history'>
                 <ul>
-                    <li>Moscow</li>
-                    <li>Belgrade</li>
-                    <li>Minsk</li>
-                    <li>Rakka</li>
+                    {searchedLocations.map((searchedLocation, index) => 
+                        <li key={`searched-location-${index}`} onClick={handleClickSearchedLocation}>{searchedLocation}</li>
+                    )}
                 </ul>
             </div>
             <p className='line'></p>

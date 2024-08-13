@@ -16,17 +16,21 @@ const forecast = async (req, res) => {
         })
 
         const weatherForecastData = await resWeatherApi.json()
-        console.log(weatherForecastData.forecast.forecastday)
 
+        if (!resWeatherApi.ok) {
+            return res.status(400).json({
+                msg: weatherForecastData.error.message
+            })
+        }
 
-        // console.log(weatherForecastData.forecast.forecastday.slice(0, dayCount))
+        // console.log(weatherForecastData)
         
         return res.json(forecastView(weatherForecastData))
 
     } catch (error) {
         console.log(error)
         return res.status(400).json({
-            msg: 'Ошибка запроса'
+            msg: 'Request error'
         })
     }
 }
