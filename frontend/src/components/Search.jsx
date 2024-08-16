@@ -43,16 +43,17 @@ const Search = ({
             return
         }
 
+        updateStates(result)
+
         if (!localStorage.getItem('searchedLocations')) {
-            localStorage.setItem('searchedLocations', JSON.stringify([searchLocation, ...searchedLocations].slice(0, 4)))
+            localStorage.setItem('searchedLocations', JSON.stringify([...searchedLocations].slice(0, 4)))
             setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
         }
         
-        if (!JSON.parse(localStorage.getItem('searchedLocations')).includes(searchLocation)){
-            localStorage.setItem('searchedLocations', JSON.stringify([searchLocation, ...searchedLocations].slice(0, 4)))
+        if (!JSON.parse(localStorage.getItem('searchedLocations')).includes(result.current.name)) {
+            localStorage.setItem('searchedLocations', JSON.stringify([result.current.name, ...searchedLocations].slice(0, 4)))
             setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
         }
-        updateStates(result)
     }
 
     const handleClickSearchedLocation = async ({ target }) => {
