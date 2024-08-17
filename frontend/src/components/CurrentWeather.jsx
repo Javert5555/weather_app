@@ -3,10 +3,12 @@ import './CurrentWeather_.scss'
 
 const CurrentWeather = ({
         locationName,
+        localtime,
         currTemp,
         currConditionText,
         currConditionIcon
     }) => {
+    
     const months = [
         'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
@@ -15,19 +17,10 @@ const CurrentWeather = ({
 
     const [time, setTime] = useState(new Date())
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTime(new Date())
-        })
-
-        return () => clearInterval(interval)
-    },[])
-
-    const minutes = time.getMinutes()
-    const hours = time.getHours()
-    const month = time.getMonth()
-    const date = time.getDate()
     const day = time.getDay()
+
+    const [hours, minutes] = localtime.split(' ')[1].split(':')
+    const [year, month, date] = localtime.split(' ')[0].split('-').map(el => parseInt(el))
 
     return (
         <section className='current-weather'>
@@ -36,8 +29,8 @@ const CurrentWeather = ({
                 <div className='current-weather__city-name'>{locationName}</div>
                 <div>
                     <span className='current-weather__time'>{hours}:{minutes}</span>
-                    {/* <span className='current-weather__date'> Monday Dec 20</span>  */}
-                    <span className='current-weather__date'> {days[day]} {months[month]} {date}</span>
+                    {/* Monday Dec 20 */}
+                    <span className='current-weather__date'>{days[day]} {months[+month]} {date}</span>
                 </div>
             </div>
             <div className='current-weather__data'>

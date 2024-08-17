@@ -4,6 +4,7 @@ import './Search_.scss'
 
 const Search = ({
         setLocationName,
+        setLocaltime,
         setCurrTemp,
         setCurrConditionText,
         setCurrConditionIcon,
@@ -22,6 +23,7 @@ const Search = ({
     
     const updateStates = result => {
         setLocationName(result.current.name)
+        setLocaltime(result.current.localtime)
         setCurrTemp(Math.round(result.current.temp))
         setCurrConditionText(result.current.conditionText)
         setCurrConditionIcon(result.current.conditionIcon)

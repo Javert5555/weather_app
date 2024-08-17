@@ -1,6 +1,7 @@
 const forecastView = (forecastData, dayCount) => ({
     current: {
         name: forecastData?.location?.name,
+        localtime: forecastData?.location?.localtime,
         temp: forecastData?.current?.temp_c,
         windSpeed: forecastData?.current?.wind_kph,
         humidity: forecastData?.current?.humidity,

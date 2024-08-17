@@ -7,6 +7,14 @@ import './app.scss'
 
 const App = () => {
   const [locationName, setLocationName] = useState('Moscow')
+  const [localtime, setLocaltime] = useState(new Date().toLocaleString('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).split(',').join(''))
   const [currTemp, setCurrTemp] = useState(0)
   const [currConditionText, setCurrConditionText] = useState('Cloudy')
   const [currConditionIcon, setCurrConditionIcon] = useState('//cdn.weatherapi.com/weather/64x64/day/122.png')
@@ -22,6 +30,7 @@ const App = () => {
         </header>
         <CurrentWeather
           locationName={locationName}
+          localtime={localtime}
           currTemp={currTemp}
           currConditionText={currConditionText}
           currConditionIcon={currConditionIcon}
@@ -30,6 +39,7 @@ const App = () => {
       <div className='panel'>
         <Search
           setLocationName={setLocationName}
+          setLocaltime={setLocaltime}
           setCurrTemp={setCurrTemp}
           setCurrConditionText={setCurrConditionText}
           setCurrConditionIcon={setCurrConditionIcon}
