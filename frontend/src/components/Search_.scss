@@ -33,7 +33,7 @@
     height: 50px;
     border: none;
     border-radius: 0;
-    background-color: #ff3c00;
+    background-color: var(--btn-color);
     color: var(--font-color);
     cursor: pointer;
     transition: .25s linear;

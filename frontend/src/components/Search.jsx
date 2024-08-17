@@ -7,10 +7,12 @@ const Search = ({
         setLocaltime,
         setCurrTemp,
         setCurrConditionText,
+        setCurrConditionCode,
         setCurrConditionIcon,
         setCurrCloud,
         setCurrHumidity,
-        setCurrWind
+        setCurrWind,
+        setIsDay
     }) => {
 
     const [searchLocation, setSearchLocation] = useState('')
@@ -26,10 +28,12 @@ const Search = ({
         setLocaltime(result.current.localtime)
         setCurrTemp(Math.round(result.current.temp))
         setCurrConditionText(result.current.conditionText)
+        setCurrConditionCode(result.current.conditionCode)
         setCurrConditionIcon(result.current.conditionIcon)
         setCurrCloud(result.current.cloud)
         setCurrHumidity(result.current.humidity)
         setCurrWind(result.current.windSpeed)
+        setIsDay(result.current.isDay)
     }
 
     const handleClickSearch = async e => {
