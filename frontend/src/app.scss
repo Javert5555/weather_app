@@ -1,6 +1,8 @@
 :root {
   --font-color: #f4f4f4;
   --inactive-color: #afafaf;
+  --line-color: #afafaf;
+  --btn-color: #ff3c00;
 }
 
 *,
@@ -38,7 +40,7 @@ ul, ol {
 .weather-app {
   width: 100%;
   min-height: 100vh;
-  background-image: url('../assets/weather-1.jpg');
+  // background-image: url('../assets/weather-1.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -74,9 +76,9 @@ ul, ol {
 
 .line {
   content: "";
-  height: 1px;
+  height: .9px;
   width: 100%;
-  background-color: var(--inactive-color);
+  background-color: var(--line-color);
   z-index: 100;
 }
 

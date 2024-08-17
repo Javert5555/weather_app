@@ -4,16 +4,19 @@ const getForecast = async (cityName) => {
             method: 'GET',
         })
 
+        const result = await response.json()
+
         if (!response.ok) {
-            return {msg: 'Request error'}
+            alert(result.msg)
+            return { msg: result.msg }
         }
-        console.log(response.status)
-        let result = await response.json()
-        return response
+        
+        return result
+
     } catch (error) {
         console.log(error)
         return {msg: 'Request error'}
     }
 }
 
-export default { getForecast }
+export { getForecast }

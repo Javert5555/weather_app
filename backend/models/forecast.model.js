@@ -1,14 +1,17 @@
-const forecastView = (forecastData, dayCount) => ([
-    {
+const forecastView = (forecastData, dayCount) => ({
+    current: {
         name: forecastData?.location?.name,
+        localtime: forecastData?.location?.localtime,
+        isDay: forecastData?.current?.is_day,
         temp: forecastData?.current?.temp_c,
         windSpeed: forecastData?.current?.wind_kph,
         humidity: forecastData?.current?.humidity,
         cloud: forecastData?.current?.cloud,
         conditionText: forecastData?.current?.condition?.text,
+        conditionCode: forecastData?.current?.condition?.code,
         conditionIcon: forecastData?.current?.condition?.icon
     },
-    forecastData.forecast.forecastday.slice(0, dayCount).map(({ day }) => ({
+    forecast: forecastData.forecast.forecastday.slice(0, dayCount).map(({ day }) => ({
         minTemp: day?.mintemp_c,
         maxTemp: day?.maxtemp_c,
         windSpeed: day?.maxwind_kph,
@@ -17,6 +20,6 @@ const forecastView = (forecastData, dayCount) => ([
         conditionIcon: day?.condition?.icon
     }))
 
-])
+})
 
 export default forecastView
