@@ -1,6 +1,6 @@
 :root {
   --font-color: #f4f4f4;
-  --inactive-color: #afafaf;
+  --inactive-color: #8f8f8f;
   --line-color: #afafaf;
   --btn-color: #ff3c00;
 }
@@ -80,6 +80,24 @@ ul, ol {
   width: 100%;
   background-color: var(--line-color);
   z-index: 100;
+}
+
+.my-node-enter {
+  opacity: 0;
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.my-node-exit {
+  opacity: 1;
+}
+
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
 }
 
 @media screen and (max-width: 860px) {

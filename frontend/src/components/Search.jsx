@@ -12,7 +12,8 @@ const Search = ({
         setCurrCloud,
         setCurrHumidity,
         setCurrWind,
-        setIsDay
+        setIsDay,
+        showAlert
     }) => {
 
     const [searchLocation, setSearchLocation] = useState('')
@@ -40,12 +41,16 @@ const Search = ({
         e.preventDefault()
 
         if (!searchLocation) {
-            alert('Specify location')
+            // alert('Specify location')
+            showAlert('Specify location.')
+            return
         }
 
         const result = await getForecast(searchLocation)
 
         if (result?.msg) {
+            // alert(result?.msg)
+            showAlert(result?.msg)
             return
         }
 

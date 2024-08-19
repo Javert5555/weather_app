@@ -7,7 +7,6 @@ const getForecast = async (cityName) => {
         const result = await response.json()
 
         if (!response.ok) {
-            alert(result.msg)
             return { msg: result.msg }
         }
         
