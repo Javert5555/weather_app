@@ -1,18 +1,25 @@
 import React from 'react'
-import { CSSTransition } from 'react-transition-group'
+import { Transition } from 'react-transition-group'
+import { useRef } from 'react'
 import './Alert_.scss'
 
 const Alert = ({ alertText, isShowAlert }) => {
+    const alertRef = useRef(null)
+
     return (
-        // <CSSTransition
-        //     in={isShowAlert}
-        //     timeout={2000}
-        //     classNames='popup'
-        // >
-            <div className='alert'>
-                <p>{alertText}</p>
-            </div>
-        // </CSSTransition>
+        <Transition
+            nodeRef={alertRef}
+            in={isShowAlert}
+            timeout={500}
+            mountOnEnter
+            unmountOnExit
+        >
+            {state => (
+                <div ref={alertRef} className={`alert ${state}`}>
+                    <p>{alertText}</p>
+                </div>
+            )}
+        </Transition>
     )
 }
 

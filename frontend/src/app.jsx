@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { Transition } from 'react-transition-group'
+import React, { useState } from 'react'
 import Search from './components/Search.jsx'
 import Details from './components/Details.jsx'
 import CurrentWeather from './components/CurrentWeather.jsx'
@@ -58,7 +57,7 @@ const App = () => {
     setIsShowAlert(true)
     setTimeout(() => {
       setIsShowAlert(false)
-    }, 4000)
+    }, 2500)
   }
 
   return (
@@ -68,12 +67,10 @@ const App = () => {
       }}
       className='weather-app'
     >
-      {isShowAlert && (
-        <Alert
-          alertText={alertText}
-          isShowAlert={isShowAlert}
-        />
-      )}
+      <Alert
+        alertText={alertText}
+        isShowAlert={isShowAlert}
+      />
       <div className='container'>
         <header>
           <h1>Weather APP</h1>

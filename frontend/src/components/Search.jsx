@@ -42,7 +42,7 @@ const Search = ({
 
         if (!searchLocation) {
             // alert('Specify location')
-            showAlert('Specify location')
+            showAlert('Specify location.')
             return
         }
 
