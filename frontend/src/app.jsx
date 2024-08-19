@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Transition } from 'react-transition-group'
 import Search from './components/Search.jsx'
 import Details from './components/Details.jsx'
 import CurrentWeather from './components/CurrentWeather.jsx'
+import Alert from './components/Alert.jsx'
 import dayImage from '../assets/day.jpg'
 import dayCloudImage from '../assets/day_cloudy.jpg'
 import daySnowyImage from '../assets/day_snowy.jpg'
@@ -25,12 +27,15 @@ const App = () => {
   }).split(',').join(''))
   const [currTemp, setCurrTemp] = useState(0)
   const [currConditionText, setCurrConditionText] = useState('Cloudy')
-  const [currConditionCode, setCurrConditionCode] = useState(1061233)
+  const [currConditionCode, setCurrConditionCode] = useState(1000)
   const [currConditionIcon, setCurrConditionIcon] = useState('//cdn.weatherapi.com/weather/64x64/day/122.png')
   const [currCloud, setCurrCloud] = useState(0)
   const [currHumidity, setCurrHumidity] = useState(0)
   const [currWind, setCurrWind] = useState(0)
   const [isDay, setIsDay] = useState(1)
+
+  const [isShowAlert, setIsShowAlert] = useState(false)
+  const [alertText, setAlertText] = useState('')
   
   let bgImg = `url(${dayImage})`
   const root = document.documentElement;
@@ -48,6 +53,14 @@ const App = () => {
     root.style.setProperty('--inactive-color', isDay ? '#121212' : '#fff')
   }  
 
+  const showAlert = (text) => {
+    setAlertText(text)
+    setIsShowAlert(true)
+    setTimeout(() => {
+      setIsShowAlert(false)
+    }, 4000)
+  }
+
   return (
     <div
       style={{
@@ -55,6 +68,12 @@ const App = () => {
       }}
       className='weather-app'
     >
+      {isShowAlert && (
+        <Alert
+          alertText={alertText}
+          isShowAlert={isShowAlert}
+        />
+      )}
       <div className='container'>
         <header>
           <h1>Weather APP</h1>
@@ -69,7 +88,7 @@ const App = () => {
       </div>
       <div className='panel'>
         <Search
-        setCurrConditionCode={setCurrConditionCode}
+          setCurrConditionCode={setCurrConditionCode}
           setLocationName={setLocationName}
           setLocaltime={setLocaltime}
           setCurrTemp={setCurrTemp}
@@ -79,6 +98,8 @@ const App = () => {
           setCurrHumidity={setCurrHumidity}
           setCurrWind={setCurrWind}
           setIsDay={setIsDay}
+
+          showAlert={showAlert}
         />
         <Details
           currCloud={currCloud}

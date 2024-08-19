@@ -82,6 +82,24 @@ ul, ol {
   z-index: 100;
 }
 
+.my-node-enter {
+  opacity: 0;
+}
+
+.my-node-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.my-node-exit {
+  opacity: 1;
+}
+
+.my-node-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
 @media screen and (max-width: 860px) {
   .panel, .container {
     position: relative;
