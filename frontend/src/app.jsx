@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Details from './components/Details.jsx'
 import CurrentWeather from './components/CurrentWeather.jsx'
@@ -15,7 +15,7 @@ import rainImage from '../assets/rainy.jpg'
 import './app.scss'
 
 const App = () => {
-  const [locationName, setLocationName] = useState('Moscow')
+  const [locationName, setLocationName] = useState('City')
   const [localtime, setLocaltime] = useState(new Date().toLocaleString('sv-SE', {
     year: 'numeric',
     month: '2-digit',
@@ -36,21 +36,8 @@ const App = () => {
   const [isShowAlert, setIsShowAlert] = useState(false)
   const [alertText, setAlertText] = useState('')
   
-  let bgImg = `url(${dayImage})`
+  const [bgImg, setBgImg] = useState(`url(${dayImage})`)
   const root = document.documentElement;
-
-  if (currConditionCode == 1000) {
-    bgImg = isDay ? `url(${dayImage})` : `url(${nightImage})`
-  } else if ([1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282].includes(currConditionCode)) {
-    bgImg = isDay ? `url(${dayCloudImage})` : `url(${nightCloudImage})`
-    root.style.setProperty('--inactive-color', isDay ? '#191919' : '#afafaf')
-  } else if ([1063, 1072, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195, 1204, 1207, 1240, 1243, 1246, 1249, 1252].includes(currConditionCode)) {
-    bgImg = `url(${rainImage})`
-    root.style.setProperty('--inactive-color', '#121212')
-  } else {
-    bgImg = isDay ? `url(${daySnowyImage})` : `url(${nightSnowyImage})`
-    root.style.setProperty('--inactive-color', isDay ? '#121212' : '#fff')
-  }  
 
   const showAlert = (text) => {
     setAlertText(text)
@@ -59,6 +46,21 @@ const App = () => {
       setIsShowAlert(false)
     }, 2500)
   }
+
+  useEffect(() => {
+    if (currConditionCode == 1000) {
+      setBgImg(isDay ? `url(${dayImage})` : `url(${nightImage})`)
+    } else if ([1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282].includes(currConditionCode)) {
+      setBgImg(isDay ? `url(${dayCloudImage})` : `url(${nightCloudImage})`)
+      root.style.setProperty('--inactive-color', isDay ? '#191919' : '#afafaf')
+    } else if ([1063, 1072, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195, 1204, 1207, 1240, 1243, 1246, 1249, 1252].includes(currConditionCode)) {
+      setBgImg(`url(${rainImage})`)
+      root.style.setProperty('--inactive-color', '#121212')
+    } else {
+      setBgImg(isDay ? `url(${daySnowyImage})` : `url(${nightSnowyImage})`)
+      root.style.setProperty('--inactive-color', isDay ? '#121212' : '#fff')
+    }
+  }, [currConditionCode])
 
   return (
     <div
