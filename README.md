@@ -1,4 +1,4 @@
-# pern_skeleton
+# Weather App
 
 Before starting the application, you need to fill in the environment variables in the config directory
 
@@ -8,7 +8,7 @@ docker compose --env-file ./config/.env.dev build
 docker compose --env-file ./config/.env.dev up
 ```
 
-или
+or
 
 ``` bash
 docker compose --env-file ./config/.env.dev up --build
@@ -20,7 +20,7 @@ docker compose -f docker-compose.yml -f ./docker-compose/docker-compose.nginx.ym
 docker compose -f docker-compose.yml -f ./docker-compose/docker-compose.nginx.yml --env-file ./config/.env.prod up
 ```
 
-или
+or
 
 ``` bash
 docker compose -f docker-compose.yml -f ./docker-compose/docker-compose.nginx.yml --env-file ./config/.env.prod up --build
