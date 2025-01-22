@@ -1,6 +1,9 @@
 import forecastView from '../models/forecast.model.js'
 
 const forecast = async (req, res) => {
+    // Remove later
+    console.log('Работает выполнение запроса')
+    //
     try {
 
         if (!req.query?.cityName) {
@@ -11,7 +14,8 @@ const forecast = async (req, res) => {
 
         const dayCount = 6
 
-        const resWeatherApi = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&days=${dayCount}&q=${req.query.cityName}&aqi=no`, {
+        // const resWeatherApi = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.WEATHER_API_KEY}&days=${dayCount}&q=${req.query.cityName}&aqi=no`, {
+        const resWeatherApi = await fetch(`https://api.openweathermap.org/data/2.5/weather?appid=${process.env.WEATHER_API_KEY}&days=${dayCount}&q=${req.query.cityName}&aqi=no`, {
             method: 'GET'
         })
 
