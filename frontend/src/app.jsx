@@ -4,14 +4,7 @@ import Details from './components/Details.jsx'
 import CurrentWeather from './components/CurrentWeather.jsx'
 import Alert from './components/Alert.jsx'
 import dayImage from '../assets/day.jpg'
-import dayCloudImage from '../assets/day_cloudy.jpg'
-import daySnowyImage from '../assets/day_snowy.jpg'
-import nightImage from '../assets/night.jpg'
-import nightCloudImage from '../assets/night_cloudy.jpg'
-import nightSnowyImage from '../assets/night_snowy.jpg'
-import rainImage from '../assets/rainy.jpg'
-
-
+import changeBgImage from './utils/changeBgImg.js'
 import './app.scss'
 
 const App = () => {
@@ -26,18 +19,15 @@ const App = () => {
   }).split(',').join(''))
   const [currTemp, setCurrTemp] = useState(0)
   const [currConditionText, setCurrConditionText] = useState('Cloudy')
-  const [currConditionCode, setCurrConditionCode] = useState(1000)
-  const [currConditionIcon, setCurrConditionIcon] = useState('//cdn.weatherapi.com/weather/64x64/day/122.png')
+  const [currConditionCode, setCurrConditionCode] = useState(801)
+  const [currConditionIcon, setCurrConditionIcon] = useState('https://openweathermap.org/img/wn/02d@2x.png')
   const [currCloud, setCurrCloud] = useState(0)
   const [currHumidity, setCurrHumidity] = useState(0)
   const [currWind, setCurrWind] = useState(0)
-  const [isDay, setIsDay] = useState(1)
-
+  const [isDay, setIsDay] = useState(true)
   const [isShowAlert, setIsShowAlert] = useState(false)
   const [alertText, setAlertText] = useState('')
-  
   const [bgImg, setBgImg] = useState(`url(${dayImage})`)
-  const root = document.documentElement;
 
   const showAlert = (text) => {
     setAlertText(text)
@@ -48,18 +38,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (currConditionCode == 1000) {
-      setBgImg(isDay ? `url(${dayImage})` : `url(${nightImage})`)
-    } else if ([1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282].includes(currConditionCode)) {
-      setBgImg(isDay ? `url(${dayCloudImage})` : `url(${nightCloudImage})`)
-      root.style.setProperty('--inactive-color', isDay ? '#191919' : '#afafaf')
-    } else if ([1063, 1072, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195, 1204, 1207, 1240, 1243, 1246, 1249, 1252].includes(currConditionCode)) {
-      setBgImg(`url(${rainImage})`)
-      root.style.setProperty('--inactive-color', '#121212')
-    } else {
-      setBgImg(isDay ? `url(${daySnowyImage})` : `url(${nightSnowyImage})`)
-      root.style.setProperty('--inactive-color', isDay ? '#121212' : '#fff')
-    }
+    changeBgImage(currConditionCode, isDay, setBgImg)
   }, [currConditionCode])
 
   return (

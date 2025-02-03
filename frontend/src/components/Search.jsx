@@ -25,23 +25,22 @@ const Search = ({
     )
     
     const updateStates = result => {
-        setLocationName(result.current.name)
-        setLocaltime(result.current.localtime)
-        setCurrTemp(Math.round(result.current.temp))
-        setCurrConditionText(result.current.conditionText)
-        setCurrConditionCode(result.current.conditionCode)
-        setCurrConditionIcon(result.current.conditionIcon)
-        setCurrCloud(result.current.cloud)
-        setCurrHumidity(result.current.humidity)
-        setCurrWind(result.current.windSpeed)
-        setIsDay(result.current.isDay)
+        setLocationName(result.name)
+        setLocaltime(result.localtime)
+        setCurrTemp(Math.round(result.temp))
+        setCurrConditionText(result.conditionText)
+        setCurrConditionCode(result.conditionCode)
+        setCurrConditionIcon(result.conditionIcon)
+        setCurrCloud(result.cloud)
+        setCurrHumidity(result.humidity)
+        setCurrWind(result.windSpeed)
+        setIsDay(result.isDay)
     }
 
     const handleClickSearch = async e => {
         e.preventDefault()
 
         if (!searchLocation) {
-            // alert('Specify location')
             showAlert('Specify location.')
             return
         }
@@ -49,7 +48,6 @@ const Search = ({
         const result = await getForecast(searchLocation)
 
         if (result?.msg) {
-            // alert(result?.msg)
             showAlert(result?.msg)
             return
         }
@@ -61,8 +59,8 @@ const Search = ({
             setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
         }
         
-        if (!JSON.parse(localStorage.getItem('searchedLocations')).includes(result.current.name)) {
-            localStorage.setItem('searchedLocations', JSON.stringify([result.current.name, ...searchedLocations].slice(0, 4)))
+        if (!JSON.parse(localStorage.getItem('searchedLocations')).includes(result.name)) {
+            localStorage.setItem('searchedLocations', JSON.stringify([result.name, ...searchedLocations].slice(0, 4)))
             setSearchedLocations(JSON.parse(localStorage.getItem('searchedLocations')))
         }
     }

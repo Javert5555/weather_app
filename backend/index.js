@@ -10,24 +10,16 @@ const port = process.env.BACK_PORT || 4444
 
 const corsOriginPorts = process.env.NGINX_PORT ?
   [
-    `http://frontend:${process.env.FRONT_PORT}`,
-    // `http://localhost:${port}`,
-    `http://nginx:${process.env.NGINX_PORT}`,
-    // 'https://api.openweathermap.org'
+    `http://localhost:${process.env.FRONT_PORT}`,
+    `http://localhost:${process.env.NGINX_PORT}`,
   ] : 
   [
-    `http://frontend:${process.env.FRONT_PORT}`,
-    `http://localhost:5000`,
-    // `http://localhost:${port}`,
-    // 'https://api.openweathermap.org'
+    `http://localhost:${process.env.FRONT_PORT}`,
   ]
-
-console.log(corsOriginPorts)
 
 const corsOptions = {
   origin: corsOriginPorts,
   exposedHeaders: ['Content-Type', 'API-Key', 'Authentication', 'Host', 'User-Agent', 'Accept', 'Accept-Language'],
-  // exposedHeaders: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   // optionSuccessStatus: 200,
   // maxAge: 86400,

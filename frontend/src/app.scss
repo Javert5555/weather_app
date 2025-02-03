@@ -3,6 +3,8 @@
   --inactive-color: #8f8f8f;
   --line-color: #afafaf;
   --btn-color: #ff3c00;
+  --curr-font-color: #f4f4f4;
+  --details-font-color: #f4f4f4;
 }
 
 *,
@@ -22,6 +24,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--font-color);
+  background-color: #000;
   font-size: 0.8em;
   font-family: 'Rubik', sans-serif;
   // background: -webkit-linear-gradient(90deg, #2c8aa6,#00528c,#2e0f57);
@@ -43,6 +46,8 @@ ul, ol {
   // background-image: url('../assets/weather-1.jpg');
   background-size: cover;
   background-position: center;
+  overflow-x: hidden;
+
 }
 
 .container {

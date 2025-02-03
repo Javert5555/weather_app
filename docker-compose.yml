@@ -43,9 +43,9 @@ services:
       - appnet
 
 networks:
-  appnet:
+  appnet: {}
     # name: appnet
-    driver: bridge
+    # driver: bridge
   # dbnet:
   #   name: dbnet
   #   driver: bridge

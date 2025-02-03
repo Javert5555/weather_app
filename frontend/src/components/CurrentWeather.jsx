@@ -15,12 +15,10 @@ const CurrentWeather = ({
     ];
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-    const [time, setTime] = useState(new Date())
-
-    const day = time.getDay()
+    const day = (new Date()).getDay()
 
     const [hours, minutes] = localtime.split(' ')[1].split(':')
-    const [year, month, date] = localtime.split(' ')[0].split('-').map(el => parseInt(el))
+    const [_, month, date] = localtime.split(' ')[0].split('-').map(el => parseInt(el))
 
     return (
         <section className='current-weather'>
@@ -29,8 +27,7 @@ const CurrentWeather = ({
                 <div className='current-weather__city-name'>{locationName}</div>
                 <div>
                     <span className='current-weather__time'>{hours}:{minutes}</span>
-                    {/* Monday Dec 20 */}
-                    <span className='current-weather__date'>{days[day]} {months[+month]} {date}</span>
+                    <span className='current-weather__date'>{days[day]} {months[month-1]} {date}</span>
                 </div>
             </div>
             <div className='current-weather__data'>
